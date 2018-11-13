@@ -1,0 +1,38 @@
+pipeline:
+  build:
+    image: paperist/alpine-texlive-ja
+    commands:
+      - tlmgr update --self
+      - tlmgr install ulem
+      - latexmk paper.tex
+    when:
+        branch: master
+        status: success
+  github_orphan:
+    image: bravissimolabs/alpine-git
+    commands:
+      - mv ./paper.pdf /tmp/paper.pdf
+      - git config --global user.email "bot@drone"
+      - git config --global user.name "bot"
+      - git checkout --orphan pdf
+      - git rm -rf .
+      - mv /tmp/paper.pdf ./
+      - git add -f paper.pdf
+      - git commit -m "latest pdf"
+      - git push -f origin pdf
+    when:
+        branch: master
+        status: success
+  slack:
+    image: plugins/slack
+    webhook: https://hooks.slack.com/services/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
+    channel: bachelor
+    template: >
+      {{#success build.status}}
+        {{repo.owner}}/{{repo.name}} build {{build.number}} succeeded.
+        https://github.com/{{repo.owner}}/{{repo.name}}/blob/pdf/paper.pdf
+        {{build.link}}
+      {{else}}
+        build {{build.number}} failed.
+        {{build.link}}
+      {{/success}}

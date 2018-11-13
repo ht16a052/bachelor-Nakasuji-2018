@@ -1,0 +1,23 @@
+{
+    "version": "0.1.0",
+    "command": "latexmk",
+    "isShellCommand": true,
+    "args": [
+        "-p",
+        "paper.tex"
+    ],
+    "showOutput": "silent",
+    "problemMatcher": {
+        "owner": "latex-preview",
+        "fileLocation": [
+            "relative",
+            "${workspaceRoot}"
+        ],
+        "pattern": {
+            "regexp": "^(.*):(\\d+):\\s+(.*)$",
+            "file": 1,
+            "line": 2,
+            "message": 3
+        }
+    }
+}

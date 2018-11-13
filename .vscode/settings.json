@@ -1,0 +1,36 @@
+// 既定の設定とユーザー設定を上書きするには、このファイル内に設定を挿入します
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/.DS_Store": true,
+        "*.aux": true,
+        "*.fls": true,
+        "*.lot": true,
+        "*.ps": true,
+        "*.dvi": true,
+        "*.toc": true,
+        "*.blg": true,
+        "*.bbl": true,
+        "*.fdb_latexmk": true,
+        "*.lof": true
+    },
+    "latex-workshop.latex.recipes": [
+      {
+        "name": "latexmk",
+        "tools": [
+          "latexmk"
+        ]
+      },
+    ],
+    "latex-workshop.latex.tools": [
+      {
+        "name": "latexmk",
+        "command": "latexmk",
+        "args": [
+          "paper.tex"
+        ]
+      },
+    ]
+}
